@@ -18,18 +18,18 @@ export default function App() {
 
   const exampleSequences = [
     {
-      name: 'Hemoglobina Humana',
+      name: 'Human Hemoglobin',
       seq: 'MVLSPADKTNVKAAWGKVGAHAGEYGAEALERMFLSFPTTKTYFPHFDLSHGSAQVKGHGKKVADALTNAVAHVDDMPNALSALSDLHAHKLRVDPVNFK'
     },
     {
-      name: 'Proteína corta',
+      name: 'Short Protein',
       seq: 'ACDEFGHIKLMNPQRSTVWY'
     }
   ];
 
   const handleSend = async () => {
     if (sequence.trim().length < 10) {
-      setError("La secuencia debe tener al menos 10 aminoácidos.");
+      setError("The sequence must contain at least 10 amino acids.");
       return;
     }
 
@@ -52,7 +52,7 @@ export default function App() {
       if (!res.ok) throw new Error(data.message);
       setResponse(data.data);
     } catch (err) {
-      setError(err.message || "Error de conexión");
+      setError(err.message || "Connection error");
     } finally {
       setLoading(false);
     }
@@ -77,30 +77,28 @@ export default function App() {
             </div>
           </div>
           <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400">
-            Predictor de Proteinas
+            Protein Predictor
           </h1>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Descubre proteínas similares en UniProt usando inteligencia artificial
+            Discover similar proteins in UniProt using artificial intelligence
           </p>
         </header>
 
         {/* INPUT CARD */}
         <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 p-8">
           <label className="block text-sm font-semibold text-gray-200 mb-3">
-            Secuencia de Proteína
+            Protein Sequence
           </label>
           <textarea
             value={sequence}
             onChange={(e) => setSequence(e.target.value.toUpperCase())}
-            placeholder="Ejemplo: MVLSPADKTNVKAAWGKVGAHAGEY..."
+            placeholder="Example: MVLSPADKTNVKAAWGKVGAHAGEY..."
             className="w-full h-40 font-mono text-sm p-4 bg-white/5 border border-white/30 rounded-xl text-white placeholder-gray-400 focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all outline-none resize-none"
           />
 
-          
-
           <div className="flex justify-between items-center mt-6">
             <p className="text-sm text-gray-400">
-              {sequence.length} aminoácidos
+              {sequence.length} amino acids
             </p>
             <div className="flex gap-2">
               {exampleSequences.map((ex, idx) => (
@@ -122,12 +120,12 @@ export default function App() {
               {loading ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  Analizando...
+                  Analyzing...
                 </>
               ) : (
                 <>
                   <Send className="w-5 h-5" />
-                  Analizar
+                  Analyze
                 </>
               )}
             </button>
@@ -140,7 +138,7 @@ export default function App() {
           )}
         </div>
 
-        {/* RESULTADOS */}
+        {/* RESULTS */}
         {response && (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
 
@@ -153,7 +151,7 @@ export default function App() {
                     {response.metadata.processingTime}
                     <span className="text-sm font-normal text-gray-300 ml-1">ms</span>
                   </p>
-                  <p className="text-xs text-gray-400">Tiempo de proceso</p>
+                  <p className="text-xs text-gray-400">Processing Time</p>
                 </div>
                 <div className="space-y-2">
                   <Dna className="w-6 h-6 text-purple-400 mx-auto" />
@@ -161,23 +159,23 @@ export default function App() {
                     {response.inputSequence.length}
                     <span className="text-sm font-normal text-gray-300 ml-1">aa</span>
                   </p>
-                  <p className="text-xs text-gray-400">Longitud</p>
+                  <p className="text-xs text-gray-400">Length</p>
                 </div>
                 <div className="space-y-2">
                   <FlaskConical className="w-6 h-6 text-pink-400 mx-auto" />
                   <p className="text-2xl font-bold text-white">
                     {response.predictions.length}
                   </p>
-                  <p className="text-xs text-gray-400">Resultados</p>
+                  <p className="text-xs text-gray-400">Results</p>
                 </div>
               </div>
             </div>
 
-            {/* PREDICCIONES */}
+            {/* PREDICTIONS */}
             <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 p-8">
               <h2 className="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
                 <FlaskConical className="text-cyan-400" />
-                Proteínas Más Similares
+                Most Similar Proteins
               </h2>
 
               <div className="space-y-4">
@@ -213,7 +211,7 @@ export default function App() {
                         <span className="text-purple-400">📏</span> {p.sequence.length} aa
                       </span>
                       <span className="flex items-center gap-1">
-                        <span className="text-pink-400">📊</span> Distancia: {p.distance}
+                        <span className="text-pink-400">📊</span> Distance: {p.distance}
                       </span>
                     </div>
 
