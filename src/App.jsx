@@ -8,7 +8,7 @@ import {
   Sparkles,
 } from "lucide-react";
 
-const API_URL = "http://localhost:3000/api/predict";
+const API_URL = "http://178.104.227.250:3000/api/predict";
 
 export default function App() {
   const [sequence, setSequence] = useState("");
